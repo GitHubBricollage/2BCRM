@@ -1,0 +1,34 @@
+.button-wide {
+    background: #0b489d;
+    border-color: #0b489d;
+    color: white;
+    fill: white;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    font-weight: 500;
+    width: 100%;
+}
+.button-wide:hover {
+    background: #093c84;
+    border-color: white;
+    color: white;
+}
+
+.card {
+    border: 0px!important;
+}
+
+.k-checkbox.k-checked, .k-checkbox:checked {
+    border-color: #0b489d;
+    color: #fff;
+    background-color: #0b489d;
+}
+
+.k-treeview .k-in.k-state-selected {
+    color: #000;
+    background-color: #fff;
+}
+.k-treeview .k-in.k-state-hover, .k-treeview .k-in:hover {
+    color: #000;
+    background-color: #fff;
+}

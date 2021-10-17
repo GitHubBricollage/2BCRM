@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>2BCRM</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-main.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jquery.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jszip.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/commun.css">
+
+        <script src="js/menu.js"></script>
+    </head>
+    <body id="body-pd">
+        <header class="header" id="header">
+            <div class="header_toggle"> <i class='fa-bars fa' id="header-toggle"></i> </div>
+        </header>
+
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="https://www.ribegroupe.fr/" class="nav_logo" style="padding: .5rem 0 .5rem 1rem;">
+                        <div class="nav_logo-icon sidebar-logo"> <img src="inc/logoIcon.png" alt=""> </div>
+                        <span class="nav_logo-name">2BCRM</span> 
+                    </a>
+                    <div class="nav_list"> 
+                        <a href="activite.html" class="nav_link"> 
+                            <i class="fa fa-home "></i> 
+                            <span class="nav_name">Activités</span> 
+                        </a> 
+                        <a href="client.html" class="nav_link"> 
+                            <i class="fa fa-users "></i> 
+                            <span class="nav_name">Client</span> 
+                        </a> 
+                        <a href="relations.html" class="nav_link active"> 
+                            <i class="fa fa-handshake "></i> 
+                            <span class="nav_name">Relations</span> 
+                        </a> 
+                        <a href="prospections.html" class="nav_link"> 
+                            <i class="fa fa-eye "></i>
+                            <span class="nav_name">Prospections</span> 
+                        </a>
+                        <a href="documents.html" class="nav_link"> 
+                            <i class="fa fa-file "></i>
+                            <span class="nav_name">Documents</span> 
+                        </a> 
+
+                    </div>
+                </div> 
+            </nav>
+        </div>
+        <!--Container Main start-->
+        <div class="container-fluid">
+            <!-- Kendo Grid with : _ Popup editing
+                                   _ Filter row
+                                   _ Selection & Export (but doesn't work)
+                                   _ Column reordering
+                                   _ Sorting
+                                   _  -->
+            <div id="example">
+                <div id="chart-container"></div>
+
+                <span class='k-primary k-bg-primary k-icon k-i-menu contextMenuIcon'></span>
+
+                <ul id="contextmenu">
+                    <li id="copy">Copy</li>
+                    <li id="copyWithHeaders">Copy with Headers</li>
+                    <li class="k-separator"></li>
+                    <li id="export">Export</li>
+                    <li id="exportWithHeaders">Export with Headers</li>
+                    <li id="exportToChart">Export to Chart</li>
+                </ul>
+
+                <div id="grid"></div>
+                
+                <script>
+                    $(document).ready(function () {
+                        var crudServiceBaseUrl = "https://demos.telerik.com/kendo-ui/service",
+                            dataSource = new kendo.data.DataSource({
+                                transport: {
+                                    read:  {
+                                        url: crudServiceBaseUrl + "/Products",
+                                        dataType: "jsonp"
+                                    },
+                                    update: {
+                                        url: crudServiceBaseUrl + "/Products/Update",
+                                        dataType: "jsonp"
+                                    },
+                                    destroy: {
+                                        url: crudServiceBaseUrl + "/Products/Destroy",
+                                        dataType: "jsonp"
+                                    },
+                                    create: {
+                                        url: crudServiceBaseUrl + "/Products/Create",
+                                        dataType: "jsonp"
+                                    },
+                                    parameterMap: function(options, operation) {
+                                        if (operation !== "read" && options.models) {
+                                            return {models: kendo.stringify(options.models)};
+                                        }
+                                    }
+                                },
+                                batch: true,
+                                pageSize: 20,
+                                schema: {
+                                    model: {
+                                        id: "ProductID",
+                                        fields: {
+                                            ProductID: { editable: false, nullable: true },
+                                            ProductName: { validation: { required: true } },
+                                            UnitPrice: { type: "number", validation: { required: true, min: 1} },
+                                            Discontinued: { type: "boolean" },
+                                            UnitsInStock: { type: "number", validation: { min: 0, required: true } }
+                                        }
+                                    }
+                                }
+                            });
+            
+                        $("#grid").kendoGrid({
+                            dataSource: dataSource,
+                            pageable: true,
+                            height: 550,
+                            filterable: {
+                                    mode: "row"
+                            },
+                            sortable: true,
+                            reorderable: true,
+                            resizable: true,
+                            selectable: "multiple cell",
+                            toolbar: ["create"],
+                            columns: [
+                                { field:"ProductName", title: "Product Name" },
+                                { field: "UnitPrice", title:"Unit Price", format: "{0:c}", width: "120px" },
+                                { field: "UnitsInStock", title:"Units In Stock", width: "120px" },
+                                { field: "Discontinued", width: "120px", editor: customBoolEditor },
+                                { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
+                            editable: "popup"
+                        });
+
+                        //EXPORT
+                        $("#contextmenu").kendoContextMenu({
+                        target: ".contextMenuIcon",
+                        showOn: "click",
+                        direction: "right",
+                        alignToAnchor: true,
+                        copyAnchorStyles: false,
+                        select: function (e) {
+                            var item = e.item.id;
+
+                            switch (item) {
+                                case "copy":
+                                    copySelected();
+                                    break;
+                                case "copyWithHeaders":
+                                    copySelectedWithHeaders();
+                                    break;
+                                case "export":
+                                    exportSelected();
+                                    break;
+                                case "exportWithHeaders":
+                                    exportSelectedWithHeaders();
+                                    break;
+                                case "exportToChart":
+                                    exportToChart();
+                                    break;
+                                default:
+                                    break;
+                            };
+                        }
+                    });
+
+                    function onDataBound() {
+                        $(".contextMenuIcon").addClass("hidden");
+                    }
+
+                    function onChange() {
+                        let selectedRowLength = this.select().length;
+
+                        let contextMenuIcon = $(".contextMenuIcon");
+
+                        if (selectedRowLength > 0) {
+                            contextMenuIcon.removeClass("hidden");
+                        } else {
+                            contextMenuIcon.addClass("hidden");
+                        }
+                    }
+
+                    function copySelected() {
+                        let selected = grid.select();
+
+                        if (selected.length === 0) {
+                            kendo.alert("Please select cells before copying.");
+                            return;
+                        }
+
+                        grid.copySelectionToClipboard(false);
+                    }
+
+                    function copySelectedWithHeaders() {
+                        let selected = grid.select();
+
+                        if (selected.length === 0) {
+                            kendo.alert("Please select cells before copying.");
+                            return;
+                        }
+
+                        grid.copySelectionToClipboard(true);
+                    }
+
+                    function exportSelected() {
+                        let selected = grid.select();
+
+                        if (selected.length === 0) {
+                            kendo.alert("Please select cells before exporting.");
+                            return;
+                        }
+                        grid.exportSelectedToExcel(false);
+                    }
+
+                    function exportSelectedWithHeaders() {
+                        let selected = grid.select();
+
+                        if (selected.length === 0) {
+                            kendo.alert("Please select cells before exporting.");
+                            return;
+                        }
+
+                        grid.exportSelectedToExcel(true);
+                    }
+
+                function exportToChart() {
+                    var container = $('#chart-container');
+                    var windowInstance = $('#chart-container').data('kendoWindow');
+                    var currInstance = container.find('.k-chart').data('kendoChart');
+                    var data = grid.getSelectedData();
+
+                    if (!data.length) {
+                        kendo.alert('Please select cells before exporting.');
+                        return;
+                    }
+
+                    let unknownCountries = $.extend(true, [], data);
+
+                    unknownCountries.forEach(function (item, index, array) {
+                        if (!array[index].ShipCountry) {
+                            array[index].ShipCountry = "Unknown"
+                        }
+                    });
+
+                    if (windowInstance) {
+                        windowInstance.destroy();
+                    }
+
+                    if (currInstance) {
+                        currInstance.destroy();
+                    }
+
+                    let windowWidth = data.length > 5 ? data.length * 75 : 500;
+                    windowInstance = container.kendoWindow({ width: windowWidth }).data('kendoWindow');
+
+                    container.empty();
+                    var element = $('<div></div>').appendTo(container);
+                    windowInstance.open().center();
+                    element.kendoChart({
+                        dataSource: {
+                            data: unknownCountries
+                        },
+                        series: [{
+                            type: "column",
+                            field: 'Freight'
+                        }],
+                        categoryAxis: { field: "ShipCountry" }
+                    });
+                }
+                    });
+            
+                    function customBoolEditor(container, options) {
+                        $('<input class="k-checkbox" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
+                    }
+                </script>
+            </div>
+        </div>
+        <style>
+            .k-default-v2 .contextMenuIcon {
+                margin-top: 45px;
+            }
+        
+            .k-bootstrap-v4 .contextMenuIcon {
+                margin-top: 60px;
+            }
+        
+            .k-material-v2 .contextMenuIcon {
+                margin-top: 65px;
+            }
+        
+            .contextMenuIcon {
+                position: absolute;
+                right: 20px;
+                margin-top: 32px;
+                font-size: 16px;
+                padding: 8px;
+                cursor: pointer;
+                border-radius: 5%;
+                color: white;
+                z-index: 10000;
+            }
+        
+            .k-grid tbody tr {
+                line-height: 30px;
+            }
+        
+            #contextmenu .k-menu-item {
+                padding: 4px 8px;
+            }
+        </style>
+        <!--Container Main end-->
+    </body>
+</html>

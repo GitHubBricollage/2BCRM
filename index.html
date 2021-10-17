@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="d-flex h-100 w-100">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>2BCRM</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        
+        <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+        <link rel="stylesheet" href="css/commun.css">
+        <link rel="stylesheet" href="css/login.css">
+    </head>
+    <body class="h-100 w-100 body-con">
+
+        <div class="login-root" style="z-index: 0;">
+            <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+              <div class="loginbackground box-background--white padding-top--64">
+                <div class="loginbackground-gridContainer">
+                  <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
+                    <div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
+                    </div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
+                    <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
+                    <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
+                    <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
+                    <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
+                    <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
+                    <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
+                    <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+                  </div>
+                  <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
+                    <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+                <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+                  
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        <div class="container card my-auto text-center shadow p-3 mb-5 bg-white rounded hero-body-con" style="width: 24rem;">
+            <form id="form" action="activite.html" method="post">
+                <a href="https://www.2bsystem.fr" tabindex="-1"><img src="inc/logo2b.png"></a>
+                <div>
+                    <label>
+                        
+                    </label> <!-- message d'erreur -->
+                </div>
+                <div class="form-group text-left">
+                    <label class="form-label font-weight-bold">Utilisateur</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                        <input class="form-control" id="email" name="email" type="text" placeholder="Utilisateur"/>
+                    </div>
+                </div>
+                <div class="form-group text-left">
+                    <label class="form-label font-weight-bold">Mot de passe</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                        <input class="form-control" id="mdp" name="mdp" type="text" placeholder="Mot de passe"/>
+                    </div>
+                </div>
+                <div  class="form-group">
+                    <a  href="#" class="link-primary">Mot de passe oublié&nbsp;?</a>
+                </div>
+              <div class="form-group">
+                <button id="btn_valider" type="submit" class="btn btn-primary button-wide">
+                  Connexion
+                </button>
+              </div>
+              <span class="w-25">Ce site est soumis à la politique de confidentialité ainsi qu'aux Conditions de service de <a href="http://www.2bsystem.fr/" tabindex="-1">2BSytem</a>.</span>
+            </form>
+        </div>
+    </body>
+</html>

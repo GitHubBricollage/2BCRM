@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>2BCRM</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-main.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jquery.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/commun.css">
+        <link rel="stylesheet" href="css/client.css">
+
+        <script src="js/menu.js"></script>
+    </head>
+    <body id="body-pd">
+        <header class="header" id="header">
+            <div class="header_toggle"> <i class='fa-bars fa' id="header-toggle"></i> </div>
+            <div class="my-1 px-3">
+                <input type="text"  id="input_client" style="width: 295%;">
+            </div>
+        </header>
+
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="https://www.ribegroupe.fr/" class="nav_logo" style="padding: .5rem 0 .5rem 1rem;">
+                        <div class="nav_logo-icon sidebar-logo"> <img src="inc/logoIcon.png" alt=""> </div>
+                        <span class="nav_logo-name">2BCRM</span> 
+                    </a>
+                    <div class="nav_list"> 
+                        <a href="activite.html" class="nav_link"> 
+                            <i class="fa fa-home "></i> 
+                            <span class="nav_name">Activités</span> 
+                        </a> 
+                        <a href="client.html" class="nav_link active"> 
+                            <i class="fa fa-users "></i> 
+                            <span class="nav_name">Client</span> 
+                        </a> 
+                        <a href="relations.html" class="nav_link"> 
+                            <i class="fa fa-handshake "></i> 
+                            <span class="nav_name">Relations</span> 
+                        </a> 
+                        <a href="prospections.html" class="nav_link"> 
+                            <i class="fa fa-eye "></i>
+                            <span class="nav_name">Prospections</span> 
+                        </a>
+                        <a href="documents.html" class="nav_link"> 
+                            <i class="fa fa-file "></i>
+                            <span class="nav_name">Documents</span> 
+                        </a> 
+
+                    </div>
+                </div> 
+            </nav>
+        </div>
+        <!--Container Main start-->
+        <div class="container-fluid">
+            <script>
+                $("#input_client").kendoMultiColumnComboBox({
+                   dataTextField: "ContactName",
+                   dataValueField: "CustomerID",
+                   height: 400,
+                   columns: [
+                       { field: "ContactTitle", title: "Contact Title", width: 200 },
+                       { field: "CompanyName", title: "Company Name", width: 200 },
+                       { field: "Country", title: "Country", width: 200 }
+                   ],
+                   footerTemplate: 'Total #: instance.dataSource.total() # items found',
+                   filter: "contains",
+                   filterFields: ["ContactName", "ContactTitle", "CompanyName", "Country"],
+                   dataSource: {
+                       type: "odata",
+                       transport: {
+                           read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                       }
+                   }
+               });
+           </script>
+            <h2 class="text-center pt-3">Leclerc Ribécourt-Dreslincourt</h2>
+            <div class="my-2 px-2">
+            <div class="row">
+                <div  class="col-8 px-0 pe-1 mb-1">
+                    <div class="card bg-white  p-3 rounded h-100">
+                        <div class="row">
+                            <div  class="col-4 my-1 px-1">
+                                <div class="contact-box text-center">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Thomas Vallenet :</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" style="resize: none;">Insister sur les Pommes en Mars</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea2">Commentaire Perso :</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="2" style="resize: none;">Ne pas les appeler le lundi matin</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="col-4 my-1 px-1">
+                                <div class="contact-box text-center">
+                                    <div> FR 89 128370925</div>
+                                    <div> Segmentation</div>
+                                    <div> SAS</div>
+                                </div>
+                            </div>
+                            <div  class="col-4 my-1 px-1">
+                                <div class="contact-box text-center">
+                                    <i class="fal fa-building fa-3x"></i> 
+                                    <div class="fw-bold"><i class="fal fa-envelope"></i> leclerc@gmail.com</div>
+                                    <div class="fw-bold"><i class="fal fa-phone"></i> 04 76 45 53 20</div>
+                                    <div><i class="fal fa-phone"></i> 06 76 45 53 20</div>
+                                    <div>
+                                        5 rue Ranque
+                                        <br> complément d'adresse
+                                        <br> 13000 Marseille France
+                                        <br> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  class="col-4 px-0">
+                    <div class="d-flex flex-column">
+                        <div  class="my-1 px-1 mt-0">
+                            <div class="card bg-white  p-1 rounded">
+                                <h6 class="card-title text-truncate text-center mb-0 fw-bold">Objectif Annuel CA</h6>
+                                <span class="h4 fw-bold text-truncate text-center mb-0" id="ca_date">2 000 000 &euro;</span>
+                            </div>
+                        </div>
+                        <div  class="my-1 px-1">
+                            <div class="card bg-white  p-1 rounded">
+                                <h6 class="card-title text-truncate text-center mb-0 fw-bold">CA jour</h6>
+                                <span class="h4 fw-bold text-truncate text-center mb-0" id="ca_date">400 000 &euro;</span>
+                            </div>
+                        </div>
+                        <div  class="my-1 px-1">
+                            <div class="card bg-white  p-1 rounded">
+                                <h6 class="card-title text-truncate text-center mb-0 fw-bold">CA Jour N-1</h6>
+                                <span class="h4 fw-bold text-truncate text-center mb-0" id="ca_date">300 000 &euro;</span>
+                            </div>
+                        </div>
+                        <div  class="my-1 px-1">
+                            <div class="card bg-white  p-1 rounded">
+                                <h6 class="card-title text-truncate text-center mb-0 fw-bold">CA mois cumul</h6>
+                                <span class="h4 fw-bold text-truncate text-center mb-0" id="ca_date">800 000 &euro;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>     
+            <div id="example">
+                    <div class="demo-section k-content wide rounded">
+                        <div id="chart"></div>
+                    </div>
+                    <script>
+                        function createChart() {
+                            $("#chart").kendoChart({
+                                title: {
+                                    text: "CA Cumulés N, N-1, N-2"
+                                },
+                                legend: {
+                                    position: "top"
+                                },
+                                seriesDefaults: {
+                                    type: "column"
+                                },
+                              seriesColors: ["#2596be", "#21252", "#b0b0b0"],
+                                series: [{
+                                    name: (new Date().getFullYear()),
+                                    data: [152304, 298098, 458903, 654890, 897654, 1078893, 1246828, 1576893, 1745897, 2098574]
+                                }, {
+                                    name: (new Date().getFullYear() -1),
+                                    data: [136790, 305098, 478903, 765890, 904654, 1128893, 1226828, 1676893, 1895897, 2198574, 2455768, 2765789]
+                                }, {
+                                    name: (new Date().getFullYear() -1),
+                                    data: [136790, 305098, 478903, 765890, 904654, 1128893, 1226828, 1676893, 1895897, 2198574, 2567789, 3239483]
+                                }],
+                                valueAxis: {
+                                    labels: {
+                                        format: "{0} &euro;"
+                                    },
+                                    line: {
+                                        visible: false
+                                    },
+                                    axisCrossingValue: 0
+                                },
+                                categoryAxis: {
+                                    categories: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+                                    line: {
+                                        visible: false
+                                    },
+                                    labels: {
+                                        padding: {top: 0}
+                                    }
+                                },
+                                tooltip: {
+                                    visible: true,
+                                    format: "{0}%",
+                                    template: "#= value #  &euro;"
+                                }
+                            });
+                        }
+                
+                        $(document).ready(createChart);
+                        $(document).bind("kendo:skinChange", createChart);
+                        $(window).resize(function(){
+                            $("#chart").data("kendoChart").resize();
+                        });
+    
+                        
+                    </script>
+    
+            </div>
+            <div class="my-2 px-2">
+                <div class="row">
+                    <div  class="col-3 my-1 px-1">
+                        <div class="card bg-white  p-3 rounded">
+                            <h5 class="card-title text-truncate text-center mb-0 fw-bold">Taux de service</h5>
+                            <span class="h2 fw-bold text-truncate text-center mb-0" id="ca_date">26%</span>
+                        </div>
+                    </div>
+                    <div  class="col-3 my-1 px-1">
+                        <div class="card bg-white  p-3 rounded">
+                            <h5 class="card-title text-truncate text-center mb-0 fw-bold">Production locale</h5>
+                            <span class="h2 fw-bold text-truncate text-center mb-0" id="ca_date">98%</span>
+                        </div>
+                    </div>
+                    <div  class="col-3 my-1 px-1">
+                        <div class="card bg-white  p-3 rounded">
+                            <h5 class="card-title text-truncate text-center mb-0 fw-bold">Production Bio</h5>
+                            <span class="h2 fw-bold text-truncate text-center mb-0" id="ca_date">87%</span>
+                        </div>
+                    </div>
+                    <div  class="col-3 my-1 px-1">
+                        <div class="card bg-white  p-3 rounded">
+                            <h5 class="card-title text-truncate text-center mb-0 fw-bold">Jardin de Louis</h5>
+                            <span class="h2 fw-bold text-truncate text-center mb-0" id="ca_date">1%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card table-responsive p-3 my-2">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                          <td scope="col">TITRE</td>
+                          <th scope="col"></th>
+                          <th scope="col">Janvier</th>
+                          <th scope="col">Février</th>
+                          <th scope="col">Mars</th>
+                          <th scope="col">Avril</th>
+                          <th scope="col">Mai</th>
+                          <th scope="col">Juin</th>
+                          <th scope="col">Juillet</th>
+                          <th scope="col">Août</th>
+                          <th scope="col">Septembre</th>
+                          <th scope="col">Octobre</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row" rowspan="2">VML</th>
+                        <th name="n"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th name="n-1"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row" rowspan="2">PML</th>
+                        <th name="n"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th name="n-1"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">NB LIG/LIV</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">PMV</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <div class="card table-responsive p-3 my-2">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                          <td scope="col">TOP 10</td>
+                          <th scope="col" class="text-center" colspan="2">Janvier</th>
+                          <th scope="col" class="text-center" colspan="2">Février</th>
+                          <th scope="col" class="text-center" colspan="2">Mars</th>
+                          <th scope="col" class="text-center" colspan="2">Avril</th>
+                          <th scope="col" class="text-center" colspan="2">Mai</th>
+                          <th scope="col" class="text-center" colspan="2">Juin</th>
+                          <th scope="col" class="text-center" colspan="2">Juillet</th>
+                          <th scope="col" class="text-center" colspan="2">Août</th>
+                          <th scope="col" class="text-center" colspan="2">Septembre</th>
+                          <th scope="col" class="text-center" colspan="2">Octobre</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                            <th>Prod</th>
+                            <th>CA</th>
+                          </tr>
+                      </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Banane</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Pastèque</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Melon</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Pomme</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Poire</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <script>
+                for(i in document.getElementsByName("n")){
+                    document.getElementsByName("n")[i].innerHTML = new Date().getFullYear();
+                }
+                for(i in document.getElementsByName("n-1")){
+                document.getElementsByName("n-1")[i].innerHTML = (new Date().getFullYear()-1);
+            }
+            </script>
+
+            
+        </div>
+        <!--Container Main end-->
+    </body>
+</html>

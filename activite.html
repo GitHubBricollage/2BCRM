@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>2BCRM</title>
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-main.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jquery.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/commun.css">
+
+
+        <script src="js/menu.js"></script>
+        <script src="js/counter.js"></script>
+        
+    </head>
+    <body id="body-pd">
+        <header class="header" id="header">
+            <div class="header_toggle"> <i class='fa-bars fa' id="header-toggle"></i> </div>
+        </header>
+
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="https://www.ribegroupe.fr/" class="nav_logo" style="padding: .5rem 0 .5rem 1rem;">
+                        <div class="nav_logo-icon sidebar-logo"> <img src="inc/logoIcon.png" alt=""> </div>
+                        <span class="nav_logo-name">2BCRM</span> 
+                    </a>
+                    <div class="nav_list"> 
+                        <a href="activite.html" class="nav_link active"> 
+                            <i class="fa fa-home "></i> 
+                            <span class="nav_name">Activités</span> 
+                        </a> 
+                        <a href="client.html" class="nav_link"> 
+                            <i class="fa fa-users "></i> 
+                            <span class="nav_name">Client</span> 
+                        </a> 
+                        <a href="relations.html" class="nav_link"> 
+                            <i class="fa fa-handshake "></i> 
+                            <span class="nav_name">Relations</span> 
+                        </a> 
+                        <a href="prospections.html" class="nav_link"> 
+                            <i class="fa fa-eye "></i>
+                            <span class="nav_name">Prospections</span> 
+                        </a>
+                        <a href="documents.html" class="nav_link"> 
+                            <i class="fa fa-file "></i>
+                            <span class="nav_name">Documents</span> 
+                        </a> 
+
+                    </div>
+                </div> 
+            </nav>
+        </div>
+        <!--Container Main start-->
+        <div class="container-fluid">
+            <div class="jumbotron-fluid pt-3">
+                <div class="container-fluid">
+                  <h4 >Bienvenue Laurent-Marie sur votre espace Perso</h4>
+                  <!-- <p class="lead"></p> -->
+                </div>
+            </div>
+
+            <div class="demo-section k-content rounded d-flex justify-content-around" style="padding: 8px; margin: 4px -8px;">
+                <div>
+                    <div id="treeview"></div>
+                </div>
+                <!--<div>
+                    <h4>Commerciaux selectionnées</h4>
+                    <p id="result"></p>
+                </div>-->
+            </div>
+        
+            <script>
+                $("#treeview").kendoTreeView({
+                    checkboxes: {
+                        checkChildren: true
+                    },
+        
+                    check: onCheck,
+        
+                    dataSource: [{
+                        id: 1, text: "Laurent-Marie Tobo", expanded: false, checked: true, items: [
+                            {
+                                id: 2, text: "Resp-co1", expanded: true, items: [
+                                    { id: 3, text: "commercial1" },
+                                    { id: 4, text: "commercial2" },
+                                    { id: 5, text: "commercial3" }
+                                ]
+                            },
+                            {
+                                id: 6, text: "Resp-co2", expanded: true, items: [
+                                    { id: 7, text: "commercial4" },
+                                    { id: 8, text: "commercial5" },
+                                ]
+                            },
+                            {
+                                id: 9, text: "Resp-co2", expanded: true, items: [
+                                    { id: 10, text: "vendeur1" },
+                                    { id: 11, text: "commercial6" },
+                                    { id: 12, text: "vendeur2" }
+                                ]
+                            }
+                        ]
+                    }]
+                });
+        
+                // function that gathers IDs of checked nodes
+                function checkedNodeIds(nodes, checkedNodes) {
+                    for (var i = 0; i < nodes.length; i++) {
+                        if (nodes[i].checked) {
+                            checkedNodes.push(nodes[i].text);
+                        }
+        
+                        if (nodes[i].hasChildren) {
+                            checkedNodeIds(nodes[i].children.view(), checkedNodes);
+                        }
+                    }
+                }
+        
+                // show checked node IDs on datasource change
+                function onCheck() {
+                    var checkedNodes = [],
+                        treeView = $("#treeview").data("kendoTreeView"),
+                        message;
+        
+                    checkedNodeIds(treeView.dataSource.view(), checkedNodes);
+        
+                    if (checkedNodes.length > 0) {
+                        message = checkedNodes.join(",");
+                    } else {
+                        message = "Aucun commercial sélectionné.";
+                    }
+        
+                    $("#result").html(message);
+                }
+            </script>
+        
+            <style>
+                #treeview .k-sprite {
+                    background-image: url("../content/web/treeview/coloricons-sprite.png");
+                }
+        
+                .rootfolder { background-position: 0 0; }
+                .folder     { background-position: 0 -16px; }
+                .pdf        { background-position: 0 -32px; }
+                .html       { background-position: 0 -48px; }
+                .image      { background-position: 0 -64px; }
+            </style>
+
+            <!-- cards-->
+            <div class="row">
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <h3 class="card-title text-truncate text-center mb-0 fw-bold">CA à date</h3>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <h3 class="card-title text-truncate text-center mb-0 fw-bold">CA mois dernier</h3>
+                    </div>
+                </div>
+                <div  class="col-4  my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <h3 class="card-title text-truncate text-center mb-0 fw-bold">CA cumul</h3>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-truncate text-muted mb-0"></h5>
+                                <div id="div_ca_date">
+                                    <span class="h2 fw-bold text-truncate mb-0 count" id="ca_date">350897</span>
+                                    <span class="h2 fw-bold text-truncate mb-0"> &euro;</span>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="ml-auto mr-auto mt-md-3 mt-lg-0 hidden-xs">
+                                    <i class="fal fa-chart-bar fa-3x text-muted"></i> 
+                                </div>
+                            </div>
+                          </div>
+                          <p class=" mb-0 text-muted text-sm">
+                            <span class="text-success mr-2 text-truncate"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                            <span class="text-nowrap text-truncate">Par rapport à N-1</span>
+                          </p>
+                        </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="card-title text-truncate text-muted mb-0"> </h5>
+                                <div id="div_ca_mois_dernier">
+                                    <span class="h2 fw-bold text-truncate mb-0 count" id="ca_mois_dernier">903890</span>
+                                    <span class="h2 fw-bold text-truncate mb-0"> &euro;</span>
+                                </div>
+                              </div>
+                              <div class="col-auto">
+                                  <div class="ml-auto mr-auto mt-md-3 mt-lg-0 hidden-xs">
+                                      <i class="fal fa-chart-bar fa-3x text-muted"></i> 
+                                  </div>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                              <span class="text-success mr-2 text-truncate"><i class="fa fa-arrow-up"></i> 4.5%</span>
+                              <span class="text-nowrap text-truncate">Par rapport à N-1</span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="card-title text-truncate text-muted mb-0"> </h5>
+                                <div id="div_ca_cumul">
+                                    <span class="h2 fw-bold text-truncate mb-0 count" id="ca_cumul">1875980</span>
+                                    <span class="h2 fw-bold text-truncate mb-0"> &euro;</span>
+                                </div>
+                              </div>
+                              <div class="col-auto">
+                                  <div class="ml-auto mr-auto mt-md-3 mt-lg-0 hidden-xs">
+                                      <i class="fal fa-chart-bar fa-3x text-muted"></i> 
+                                  </div>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                              <span class="text-success mr-2 text-truncate"><i class="fa fa-arrow-up"></i> 1.7%</span>
+                              <span class="text-nowrap text-truncate">Par rapport à N-1</span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+
+
+
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="card-title text-truncate text-muted mb-0">Objectif</h5>
+                                <span class="h2 fw-bold text-truncate mb-0" id="ca_date_objectif">400 000 &euro;</span>
+                              </div>
+                              <div class="col-auto">
+                                  <div class="ml-auto mr-auto mt-md-3 mt-lg-0 hidden-xs">
+                                      <i class="fal fa-bullseye-arrow fa-3x text-muted"></i> 
+                                  </div>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                              <span class="text-success mr-2 text-truncate"><i class="fa fa-arrow-up"></i> 1.5%</span>
+                              <span class="text-nowrap text-truncate">Par rapport à N-1</span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="card-title text-truncate text-muted mb-0">Objectif</h5>
+                                <span class="h2 fw-bold text-truncate mb-0" id="ca_mois_dernier_objectif">1 000 000 &euro;</span>
+                              </div>
+                              <div class="col-auto">
+                                  <div class="ml-auto mr-auto mt-md-3 mt-lg-0 hidden-xs">
+                                      <i class="fal fa-bullseye-arrow fa-3x text-muted"></i> 
+                                  </div>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                              <span class="text-success mr-2 text-truncate"><i class="fa fa-arrow-up"></i> 1.5%</span>
+                              <span class="text-nowrap text-truncate">Par rapport à N-1</span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="card-title text-truncate text-muted mb-0">Objectif</h5>
+                                <span class="h2 fw-bold text-truncate mb-0" id="ca_cumul_objectif">2 500 000 &euro;</span>
+                              </div>
+                              <div class="col-auto">
+                                  <div class="ml-auto mr-auto mt-md-3 mt-lg-0 hidden-xs">
+                                      <i class="fal fa-bullseye-arrow fa-3x text-muted"></i> 
+                                  </div>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                              <span class="text-success mr-2 text-truncate"><i class="fa fa-arrow-up"></i> 1.5%</span>
+                              <span class="text-nowrap text-truncate">Par rapport à N-1</span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+
+
+
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <span class="h2 fw-bold text-truncate mb-0 text-danger" id="ca_date_n1">338 685 &euro;</span>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                                <span name="n-1" class="text-nowrap text-truncate"></span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <span class="h2 fw-bold text-truncate mb-0 text-success" id="ca_mois_dernier_n1">863 214 &euro;</span>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                                <span name="n-1" class="text-nowrap text-truncate"></span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <span class="h2 fw-bold text-truncate mb-0 text-danger" id="ca_cumul_n1">1 844 088 &euro;</span>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                                <span name="n-1" class="text-nowrap text-truncate"></span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+
+
+
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <span class="h2 fw-bold text-truncate mb-0" id="ca_date_n2">403 675 &euro;</span>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                                <span name="n-2" class="text-nowrap text-truncate"></span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <span class="h2 fw-bold text-truncate mb-0" id="ca_mois_dernier_n2">808 987 &euro;</span>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                                <span name="n-2" class="text-nowrap text-truncate"></span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+                <div  class="col-4 my-1 px-1" >
+                    <div class="card bg-white  p-3 rounded">
+                        <div>
+                            <div class="row">
+                              <div class="col">
+                                <span class="h2 fw-bold text-truncate mb-0" id="ca_cumul_n2">1 978 876 &euro;</span>
+                              </div>
+                            </div>
+                            <p class=" mb-0 text-muted text-sm">
+                                <span name="n-2" class="text-nowrap text-truncate"></span>
+                            </p>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 15px 5px;">
+
+            <div id="example">
+                <div class="demo-section k-content wide">
+                    <div id="chart" style="background: center no-repeat url('../content/shared/styles/world-map.png');"></div>
+                </div>
+                <script>
+                    function createChart() {
+                        $("#chart").kendoChart({
+                            title: {
+                                text: "CA Cumulés N et N-1"
+                            },
+                            legend: {
+                                position: "top"
+                            },
+                            seriesDefaults: {
+                                type: "column"
+                            },
+                          seriesColors: ["#0b489d", "#21252"],
+                            series: [{
+                                name: (new Date().getFullYear()),
+                                data: [152304, 298098, 458903, 654890, 897654, 1078893, 1246828, 1576893, 1745897, 2098574]
+                            }, {
+                                name: (new Date().getFullYear() -1),
+                                data: [136790, 305098, 478903, 765890, 904654, 1128893, 1226828, 1676893, 1895897, 2198574]
+                            }],
+                            valueAxis: {
+                                labels: {
+                                    format: "{0} &euro;"
+                                },
+                                line: {
+                                    visible: false
+                                },
+                                axisCrossingValue: 0
+                            },
+                            categoryAxis: {
+                                categories: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre"],
+                                line: {
+                                    visible: false
+                                },
+                                labels: {
+                                    padding: {top: 0}
+                                }
+                            },
+                            tooltip: {
+                                visible: true,
+                                format: "{0}%",
+                                template: "#= value #  &euro;"
+                            }
+                        });
+                    }
+            
+                    $(document).ready(createChart);
+                    $(document).bind("kendo:skinChange", createChart);
+                    $(window).resize(function(){
+                        $("#chart").data("kendoChart").resize();
+                    });
+
+                    
+                </script>
+
+        </div>
+
+        <script>
+            for(i in document.getElementsByName("n-1")){
+                document.getElementsByName("n-1")[i].innerHTML = "CA en " + (new Date().getFullYear() -1);
+            }
+            for(i in document.getElementsByName("n-2")){
+                document.getElementsByName("n-2")[i].innerHTML = "CA en " + (new Date().getFullYear() -2);
+            }
+            if(document.getElementById("ca_date").innerHTML > document.getElementById("ca_date_n1").innerHTML){
+                document.getElementById("div_ca_date").classList.add("text-success");
+            }
+            if(document.getElementById("ca_mois_dernier").innerHTML > document.getElementById("ca_mois_dernier_n1").innerHTML){
+                document.getElementById("div_ca_mois_dernier").classList.add("text-success");
+            }
+            if(document.getElementById("ca_cumul").innerHTML > document.getElementById("ca_cumul_n1").innerHTML){
+                document.getElementById("div_ca_cumul").classList.add("text-success");
+            }
+            if(document.getElementById("ca_date_n1").innerHTML > document.getElementById("ca_date_n2").innerHTML){
+                document.getElementById("ca_date_n1").classList.add("text-success");
+            }
+            if(document.getElementById("ca_mois_dernier_n1").innerHTML > document.getElementById("ca_mois_dernier_n2").innerHTML){
+                document.getElementById("ca_mois_dernier_n1").classList.add("text-success");
+            }
+            if(document.getElementById("ca_cumul_n1").innerHTML > document.getElementById("ca_cumul_n2").innerHTML){
+                document.getElementById("ca_cumul_n1").classList.add("text-success");
+            }
+        </script>
+        <!--Container Main end-->
+    </body>
+</html>
